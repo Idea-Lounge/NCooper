@@ -1,0 +1,9 @@
+syntax = "proto2";
+
+package ncooper.ai.nn;
+
+message Neuron {
+    required int32 id = 1;
+    repeated float weights = 2;
+    optional float bias = 3;
+}
