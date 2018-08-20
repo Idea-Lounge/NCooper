@@ -22,12 +22,13 @@ class Neuron {
 
     void forwardProp(const ncooper::math::linalg::Vector<NeuronType> &inputVector);
 
+    const ncooper::math::linalg::Vector<NeuronType>& getWeightsVector();
+    const NeuronType& getBias();
     const NeuronType& getOutput();
  private:
     ncooper::math::linalg::Vector<NeuronType> *weightsVector;         // arbitrary size
     NeuronType *bias;
     NeuronType *output;
-
     bool soloNeuron;
 };
 }

@@ -29,6 +29,9 @@ class Layer {
     void forwardProp(const ncooper::math::linalg::Vector<LayerType>& inputVector);
 
     Neuron<LayerType>& getNeuron(int index);
+    int getNumOfNeurons();
+    const ncooper::math::linalg::Matrix<LayerType>& getWeightsMatrix();
+    const ncooper::math::linalg::Vector<LayerType>& getBiasVector();
     const ncooper::math::linalg::Vector<LayerType>& getOutputVector();
 
  protected:

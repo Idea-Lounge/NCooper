@@ -10,7 +10,6 @@ namespace nn {
 template <class LayerType>
 Layer<LayerType>::Layer(int numOfNeurons, int inputVectorSize) : numOfNeurons(numOfNeurons), inputVectorSize(inputVectorSize) {
     this->weightsMatrix = ncooper::math::linalg::Matrix<LayerType>(numOfNeurons, inputVectorSize);
-    std::cout << "weights matrix: " << this->weightsMatrix << std::endl;
     this->biasVector = ncooper::math::linalg::Vector<LayerType>(numOfNeurons, 0);
     this->outputVector = ncooper::math::linalg::Vector<LayerType>(numOfNeurons, 0);
 
@@ -44,16 +43,12 @@ void Layer<LayerType>::randomizeWsAndBs() {
     for (int i = 0; i < this->biasVector.getSize(); i++) {
         this->biasVector[i] = distribution(generator);
     }
-    std::cout << "weightsMatrix: \n" << weightsMatrix << std::endl;
-    std::cout << "biasVector: \n" << this->biasVector << std::endl;
 }
 
 template <class LayerType>
 void Layer<LayerType>::randomizeWsAndBs(LayerType start, LayerType end) {
-    std::cout << "here" << std::endl;
     std::default_random_engine generator;
     generator.seed(time(NULL));
-    std::cout << "start " << start << std::endl;
     std::uniform_real_distribution<LayerType> distribution(start, end);
 
     for (int i = 0; i < this->weightsMatrix.getRows(); i++) {
@@ -65,16 +60,12 @@ void Layer<LayerType>::randomizeWsAndBs(LayerType start, LayerType end) {
     for (int i = 0; i < this->biasVector.getSize(); i++) {
         this->biasVector[i] = distribution(generator);
     }
-    std::cout << "weightsMatrix: \n" << weightsMatrix << std::endl;
-    std::cout << "biasVector: \n" << this->biasVector << std::endl;
 }
 
 template <>
 void Layer<int>::randomizeWsAndBs(int start, int end) {
-    std::cout << "int randomizer" << std::endl;
     std::default_random_engine generator;
     generator.seed(time(NULL));
-    std::cout << "start " << start << std::endl;
     std::uniform_int_distribution<int> distribution(start, end);
 
     for (int i = 0; i < this->weightsMatrix.getRows(); i++) {
@@ -86,13 +77,10 @@ void Layer<int>::randomizeWsAndBs(int start, int end) {
     for (int i = 0; i < this->biasVector.getSize(); i++) {
         this->biasVector[i] = distribution(generator);
     }
-    std::cout << "weightsMatrix: \n" << weightsMatrix << std::endl;
-    std::cout << "biasVector: \n" << this->biasVector << std::endl;
 }
 
 template <class LayerType>
 void Layer<LayerType>::forwardProp(const ncooper::math::linalg::Vector<LayerType> &inputVector) {
-    std::cout << "forward prop: " << inputVector << std::endl;
     ncooper::math::linalg::Vector<LayerType> preActivationVector = (this->weightsMatrix * inputVector) + this->biasVector;
 
     for (int i = 0; i < outputVector.getSize(); i++) {
@@ -101,15 +89,19 @@ void Layer<LayerType>::forwardProp(const ncooper::math::linalg::Vector<LayerType
 }
 
 template <class LayerType>
-const ncooper::math::linalg::Vector<LayerType> &Layer<LayerType>::getOutputVector() {
+const ncooper::math::linalg::Vector<LayerType>& Layer<LayerType>::getOutputVector() {
     return this->outputVector;
 }
 
 template <class LayerType>
 Neuron<LayerType>& Layer<LayerType>::getNeuron(int index) {
     assert(index >= 0 && index < this->neurons.size());
-
     return this->neurons[index];
+}
+
+template <class LayerType>
+int Layer<LayerType>::getNumOfNeurons() {
+    return this->numOfNeurons;
 }
 
 template class Layer<int>;

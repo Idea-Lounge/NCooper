@@ -94,7 +94,6 @@ template <typename VectorType>
 void VVMult(const Vector<VectorType> &vector1,
     const Vector<VectorType> &vector2,
     VectorType &result) {
-    std::cout << "VVMult called" << std::endl;
     assert(vector1.isTransposed() && vector1.getSize() == vector2.getSize());
     result = 0;
     for (int i = 0; i < vector1.getSize(); i++) {
@@ -106,7 +105,6 @@ template <typename VectorType>
 void VVAdd(const Vector<VectorType> &vector1,
     const Vector<VectorType> &vector2,
     Vector<VectorType> &result) {
-    std::cout << vector1.getSize() << " \t " << vector2.getSize() << " \t " << result.getSize() << std::endl;
     assert(vector1.getSize() == vector2.getSize() && vector2.getSize() == result.getSize());
     for (int i = 0; i < vector1.getSize(); i++) {
         result[i] = vector1[i] + vector2[i];
@@ -129,7 +127,6 @@ Vector<VectorType> operator*(const Vector<VectorType> &vector, const VectorType 
 
 template <typename VectorType>
 VectorType operator*(const Vector<VectorType> &vector1, const Vector<VectorType> &vector2) {
-    std::cout << "hello " << vector1.isTransposed() << std::endl;
     assert(vector1.isTransposed() && vector1.getSize() == vector2.getSize());
     VectorType result;
     VVMult(vector1, vector2, result);

@@ -36,13 +36,11 @@ template <class MatrixType>
 void Matrix<MatrixType>::push_back(Vector<MatrixType>& vector) {
     assert(this->cols == vector.getSize());
     vector.transpose();     // transposing vector internally
-    std::cout << "transposing vector internally" << std::endl;
     this->data.push_back(vector);
 }
 
 template <class MatrixType>
 Matrix<MatrixType> Matrix<MatrixType>::transpose() {
-    std::cout << "transposing" << std::endl;
     Matrix<MatrixType> finalMatrix(this->getCols(), this->getRows(), 0);
     for (int i = 0; i < this->getCols(); i++) {
         for (int j = 0; j < this->getRows(); j++) {
@@ -73,8 +71,6 @@ Matrix<MatrixType> Matrix<MatrixType>::kroneckerProduct(const Matrix<MatrixType>
     for (int i = 0; i < this->getRows(); i++) {
         for (int j = 0; j < this->getCols(); j++) {
             Matrix<MatrixType> tempMatrix = this->operator()(i, j) * matrix;
-            std::cout << "hello" << std::endl;
-            std::cout << finalMatrix << std::endl;
 
             for (int k = 0; k < tempMatrix.getRows(); k++) {
                 for (int l = 0; l < tempMatrix.getCols(); l++) {
@@ -140,7 +136,7 @@ template <typename MatrixType>
 void MMAdd(const Matrix<MatrixType> &matrix1,
     const Matrix<MatrixType> &matrix2,
     Matrix<MatrixType> &result) {
-    assert((matrix1.getCols() == matrix2.getCols() && matrix2.getCols == result.getCols())
+    assert((matrix1.getCols() == matrix2.getCols() && matrix2.getCols() == result.getCols())
         && (matrix1.getRows() == matrix2.getRows() == result.getRows()));
     for (int i = 0; i < matrix1.getRows(); i++) {
         result[i] = matrix1[i] + matrix2[i];
@@ -161,7 +157,6 @@ template <typename MatrixType>
 void MVMult(const Matrix<MatrixType> &matrix,
     const Vector<MatrixType> &vector,
     Vector<MatrixType> &result) {
-    std::cout << "MVMult called" << std::endl;
     assert(matrix.getCols() == vector.getSize() && matrix.getRows() == result.getSize());
     for (int i = 0; i < matrix.getRows(); i++) {
         result[i] = matrix[i] * vector;

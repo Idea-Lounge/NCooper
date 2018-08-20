@@ -25,17 +25,27 @@ Neuron<NeuronType>::Neuron(ncooper::math::linalg::Vector<NeuronType> &weightsVec
 
 template <class NeuronType>
 Neuron<NeuronType>::~Neuron() {
+    if (this->soloNeuron) {
+        delete this->weightsVector;
+        delete this->bias;
+        delete this->output;
+    }
 }
 
 template <class NeuronType>
 void Neuron<NeuronType>::forwardProp(const ncooper::math::linalg::Vector<NeuronType> &inputVector) {
-    std::cout << "WEIGHTS VECTOR: " << *this->weightsVector << std::endl;
-    std::cout << "BIAS: " << *this->bias << std::endl;
-
-    NeuronType preActivation = *this->weightsVector * inputVector;
-
-    std::cout << "preactivation: " << preActivation << std::endl;
+    NeuronType preActivation = *this->weightsVector * inputVector + *this->bias;
     *this->output = 1 / (1 + exp(-preActivation));
+}
+
+template <class NeuronType>
+const ncooper::math::linalg::Vector<NeuronType>& Neuron<NeuronType>::getWeightsVector() {
+    return *this->weightsVector;
+}
+
+template <class NeuronType>
+const NeuronType& Neuron<NeuronType>::getBias() {
+    return *this->bias;
 }
 
 template <class NeuronType>

@@ -10,9 +10,15 @@ int main() {
 
         ncooper::math::linalg::Vector<float> inputVector({1, 3, 4});
         std::cout << "input: \n" << inputVector << std::endl;
-        layer.forwardProp(inputVector);
+        // layer.forwardProp(inputVector);
+        std::cout << "lol " << std::endl;
+
+        for (int i = 0; i < layer.getNumOfNeurons(); i++) {
+            layer.getNeuron(i).forwardProp(inputVector);
+            std::cout << layer.getNeuron(i).getOutput() << std::endl;
+        }
         std::cout << "final output: " << layer.getOutputVector() << std::endl;
-        std::cout << "lol output: " << layer.getOutputVector() << std::endl;
+
     } catch (const char* exception) {
         std::cout << exception << std::endl;
     }
