@@ -17,7 +17,9 @@ include_directories(
 
 add_executable(
     NCooper
-    src/main.cpp
+    main.cpp
     src/math/linalg/vector.cpp
     src/math/linalg/matrix.cpp
+    src/ai/nn/neuron.cpp
+    src/ai/nn/layer/layer.cpp
 )
