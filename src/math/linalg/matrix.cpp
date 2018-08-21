@@ -10,7 +10,7 @@ namespace linalg {
 
 template <class MatrixType>
 Matrix<MatrixType>::Matrix() : rows(0), cols(0) {
-    this->data = std::vector<Vector<MatrixType>>();
+    this->data = std::vector<Vector<MatrixType> >();
 }
 
 template <class MatrixType>
@@ -30,7 +30,8 @@ Matrix<MatrixType>::Matrix(const Matrix<MatrixType>& matrix) : rows(matrix.rows)
 }
 
 template <class MatrixType>
-Matrix<MatrixType>::~Matrix() {}
+Matrix<MatrixType>::~Matrix() {
+}
 
 template <class MatrixType>
 void Matrix<MatrixType>::push_back(Vector<MatrixType>& vector) {
@@ -143,10 +144,10 @@ Matrix<MatrixType>& Matrix<MatrixType>::operator=(const Matrix<MatrixType>& matr
 
 template <typename MatrixType>
 void MMAdd(const Matrix<MatrixType> &matrix1,
-    const Matrix<MatrixType> &matrix2,
-    Matrix<MatrixType> &result) {
+           const Matrix<MatrixType> &matrix2,
+           Matrix<MatrixType> &result) {
     assert((matrix1.getCols() == matrix2.getCols() && matrix2.getCols() == result.getCols())
-        && (matrix1.getRows() == matrix2.getRows() == result.getRows()));
+           && (matrix1.getRows() == matrix2.getRows() == result.getRows()));
     for (int i = 0; i < matrix1.getRows(); i++) {
         result[i] = matrix1[i] + matrix2[i];
     }
@@ -154,8 +155,8 @@ void MMAdd(const Matrix<MatrixType> &matrix1,
 
 template <typename MatrixType>
 void MSMult(const Matrix<MatrixType> &matrix,
-    const MatrixType &scalar,
-    Matrix<MatrixType> &result) {
+            const MatrixType &scalar,
+            Matrix<MatrixType> &result) {
     assert((matrix.getCols() == result.getCols()) && matrix.getRows() == result.getRows());
     for (int i = 0; i < matrix.getRows(); i++) {
         result[i] = scalar * matrix[i];
@@ -164,8 +165,8 @@ void MSMult(const Matrix<MatrixType> &matrix,
 
 template <typename MatrixType>
 void MVMult(const Matrix<MatrixType> &matrix,
-    const Vector<MatrixType> &vector,
-    Vector<MatrixType> &result) {
+            const Vector<MatrixType> &vector,
+            Vector<MatrixType> &result) {
     assert(matrix.getCols() == vector.getSize() && matrix.getRows() == result.getSize());
     for (int i = 0; i < matrix.getRows(); i++) {
         result[i] = matrix[i] * vector;
@@ -174,11 +175,11 @@ void MVMult(const Matrix<MatrixType> &matrix,
 
 template <typename MatrixType>
 void MMMult(const Matrix<MatrixType> &matrix1,
-    const Matrix<MatrixType> &matrix2,
-    Matrix<MatrixType> &result) {
+            const Matrix<MatrixType> &matrix2,
+            Matrix<MatrixType> &result) {
     assert((matrix1.getCols() == matrix2.getRows())
-        && (result.getRows() == matrix1.getRows())
-        && (result.getCols() == matrix2.getCols()));
+           && (result.getRows() == matrix1.getRows())
+           && (result.getCols() == matrix2.getCols()));
     for (int i = 0; i < matrix1.getRows(); i++) {
         for (int j = 0; j < matrix2.getCols(); j++) {
             for (int k = 0; k < matrix1.getCols(); k++) {
@@ -259,6 +260,6 @@ template Matrix<float> operator*<float>(const Matrix<float>&, const Matrix<float
 template std::ostream& operator<<<int>(std::ostream&, const Matrix<int>&);
 template std::ostream& operator<<<float>(std::ostream&, const Matrix<float>&);
 
-}
-}
-}
+}  // namespace linalg
+}  // namespace math
+}  // namespace ncooper

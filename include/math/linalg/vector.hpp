@@ -5,9 +5,9 @@
 #ifndef NCOOPER_VECTOR_HPP_
 #define NCOOPER_VECTOR_HPP_
 
-#include <vector>
-#include <iostream>
 #include <assert.h>
+#include <iostream>
+#include <vector>
 
 namespace ncooper {
 namespace math {
@@ -41,18 +41,18 @@ class Vector {
 
 template <typename VectorType>
 extern void SVMult(const VectorType &scalar,
-    const Vector<VectorType> &vector,
-    Vector<VectorType> &result);
+                   const Vector<VectorType> &vector,
+                   Vector<VectorType> &result);
 
 template <typename VectorType>
 extern void VVMult(const Vector<VectorType> &vector1,
-    const Vector<VectorType> &vector2,
-    VectorType &result);
+                   const Vector<VectorType> &vector2,
+                   VectorType &result);
 
 template <typename VectorType>
 extern void VVAdd(const Vector<VectorType> &vector1,
-    const Vector<VectorType> &vector2,
-    Vector<VectorType> &result);
+                  const Vector<VectorType> &vector2,
+                  Vector<VectorType> &result);
 
 template <typename VectorType>
 extern Vector<VectorType> operator*(const VectorType &scalar, const Vector<VectorType> &vector);
@@ -65,8 +65,8 @@ extern Vector<VectorType> operator+(const Vector<VectorType> &vector1, const Vec
 template <typename VectorType>
 extern std::ostream& operator<<(std::ostream &os, const Vector<VectorType> &vector);
 
-}
-}
-}
+}  // namespace linalg
+}  // namespace math
+}  // namespace ncooper
 
 #endif  // NCOOPER_VECTOR_HPP_

@@ -5,8 +5,8 @@
 #ifndef NCOOPER_NEURON_HPP_
 #define NCOOPER_NEURON_HPP_
 
-#include <iostream>
 #include <math.h>
+#include <iostream>
 #include "math/linalg/vector.hpp"
 
 
@@ -26,13 +26,13 @@ class Neuron {
     const NeuronType& getBias();
     const NeuronType& getOutput();
  private:
-    ncooper::math::linalg::Vector<NeuronType> *weightsVector;         // arbitrary size
+    ncooper::math::linalg::Vector<NeuronType> *weightsVector;  // arbitrary size
     NeuronType *bias;
     NeuronType *output;
     bool soloNeuron;
 };
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper
 
 #endif  // NCOOPER_NEURON_HPP_

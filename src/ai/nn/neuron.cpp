@@ -56,6 +56,6 @@ const NeuronType& Neuron<NeuronType>::getOutput() {
 
 template class Neuron<int>;
 template class Neuron<float>;
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper

@@ -56,7 +56,7 @@ void Network<NetworkType>::forwardProp(const ncooper::math::linalg::Vector<Netwo
 }
 
 template <class NetworkType>
-const std::vector<std::pair<int, int>>& Network<NetworkType>::getNetworkArchitecture() {
+const std::vector<std::pair<int, int> >& Network<NetworkType>::getNetworkArchitecture() {
     return this->networkArchitecture;
 }
 
@@ -72,7 +72,6 @@ const ncooper::math::linalg::Vector<NetworkType>& Network<NetworkType>::getOutpu
 
 template class Network<int>;
 template class Network<float>;
-
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper

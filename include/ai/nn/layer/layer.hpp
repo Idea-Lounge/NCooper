@@ -5,15 +5,17 @@
 #ifndef NCOOPER_LAYER_HPP_
 #define NCOOPER_LAYER_HPP_
 
-#include <iostream>
-#include <random>
 #include <time.h>
 #include <math.h>
+
+#include <iostream>
+#include <random>
+#include <vector>
 
 #include "math/linalg/matrix.hpp"
 #include "math/linalg/vector.hpp"
 #include "ai/nn/neuron.hpp"
-// #include "ai/nn/activation.hpp"
+#include "ai/nn/activation.hpp"
 
 namespace ncooper {
 namespace ai {
@@ -42,12 +44,12 @@ class Layer {
     ncooper::math::linalg::Matrix<LayerType> weightsMatrix;
     ncooper::math::linalg::Vector<LayerType> biasVector;
     ncooper::math::linalg::Vector<LayerType> outputVector;
-    // Activation<LayerType> activation;
+    Activation<LayerType> activation;
     int numOfNeurons;
     int inputVectorSize;
 };
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper
 
 #endif  // NCOOPER_LAYER_HPP_

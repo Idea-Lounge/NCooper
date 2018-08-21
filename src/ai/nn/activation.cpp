@@ -9,67 +9,66 @@ namespace ai {
 namespace nn {
 
 template <class ActivationType>
-Activation::Activation() {
-	std::cout << "No activation name has been specified." << std::endl;
-	this->activationName = "relu";
-	std::cout << "Default activation relu chosen" << std::endl;
+Activation<ActivationType>::Activation() {
+    std::cout << "No activation name has been specified." << std::endl;
+    this->activationName = "relu";
+    std::cout << "Default activation relu chosen" << std::endl;
 }
 
 template <class ActivationType>
-Activation::Activation(std::string activationName) {
-	if (std::find(this->activationsList.begin(), this->activationsList.end(), activationName) != this->activationsList.end()) {
-		this->activationName = activationName;
-	} else {
-		this->activationName = "relu";
-		std::cout << "Default activation relu chosen" << std::endl;
-	}
+Activation<ActivationType>::Activation(std::string activationName) {
+    if (std::find(this->activationsList.begin(), this->activationsList.end(), activationName) != this->activationsList.end()) {
+        this->activationName = activationName;
+    } else {
+        this->activationName = "relu";
+        std::cout << "Default activation relu chosen" << std::endl;
+    }
 }
 
 
 // Use enum and replace these if-else-if statements
 template <class ActivationType>
-float Activation::computeActivation(ActivationType z) {
-	if (this->activationName == "identity") {
-		return identity(z);
-	} else if (this->activationName == "sigmoid") {
-		return sigmoid(z);
-	} else if (this->activationName == "tanh") {
-		return this->tanh(z);
-	} else if (this->activationName == "relu") {
-		return this->relu(z);
-	} else if (this->activationName == "leakyRelu") {
-		return this->leakyRelu(z);
-	}
+ActivationType Activation<ActivationType>::computeActivation(ActivationType z) {
+    if (this->activationName == "identity") {
+        return identity(z);
+    } else if (this->activationName == "sigmoid") {
+        return sigmoid(z);
+    } else if (this->activationName == "tanh") {
+        return this->tanh(z);
+    } else if (this->activationName == "relu") {
+        return this->relu(z);
+    } else if (this->activationName == "leakyRelu") {
+        return this->leakyRelu(z);
+    }
 }
 
 template <class ActivationType>
-ActivationType Activation::identity(ActivationType z) {
-	return (z);
+ActivationType Activation<ActivationType>::identity(ActivationType z) {
+    return (z);
 }
 
 template <class ActivationType>
-ActivationType Activation::sigmoid(ActivationType z) {
-	return (1 / (1 + std::exp(-z)));
+ActivationType Activation<ActivationType>::sigmoid(ActivationType z) {
+    return (1 / (1 + std::exp(-z)));
 }
 
 template <class ActivationType>
-ActivationType Activation::tanh(ActivationType z) {
-	return ((std::exp(z) - std::exp(-z)) / ((std::exp(z) + std::exp(-z))));
+ActivationType Activation<ActivationType>::tanh(ActivationType z) {
+    return ((std::exp(z) - std::exp(-z)) / ((std::exp(z) + std::exp(-z))));
 }
 
 template <class ActivationType>
-ActivationType Activation::relu(ActivationType z) {
-	return ((z >= 0) ? z : 0.0);
+ActivationType Activation<ActivationType>::relu(ActivationType z) {
+    return ((z >= 0) ? z : 0.0);
 }
 
 template <class ActivationType>
-ActivationType Activation::leakyRelu(ActivationType z) {
-	return ((z >= 0) ? z : (0.01 * z));
+ActivationType Activation<ActivationType>::leakyRelu(ActivationType z) {
+    return ((z >= 0) ? z : (0.01 * z));
 }
 
 template class Activation<int>;
 template class Activation<float>;
-
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper

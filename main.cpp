@@ -19,7 +19,7 @@ int main() {
         // }
         // std::cout << "final output: " << layer.getOutputVector() << std::endl;
 
-        std::vector<std::pair<int, int>> networkArchitecture;
+        std::vector<std::pair<int, int> > networkArchitecture;
         networkArchitecture.push_back(std::pair<int, int>(5, 4));
         networkArchitecture.push_back(std::pair<int, int>(4, 6));
         networkArchitecture.push_back(std::pair<int, int>(6, 3));
