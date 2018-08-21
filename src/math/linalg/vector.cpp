@@ -73,7 +73,6 @@ const VectorType& Vector<VectorType>::operator[](int index) const {
 
 template <class VectorType>
 Vector<VectorType>& Vector<VectorType>::operator=(const Vector<VectorType>& vector) {
-    assert(this->size == 0 || this->size == vector.getSize());
     this->data = vector.data;
     this->transposed = vector.transposed;
     this->size = vector.getSize();

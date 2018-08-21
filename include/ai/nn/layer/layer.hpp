@@ -13,6 +13,7 @@
 #include "math/linalg/matrix.hpp"
 #include "math/linalg/vector.hpp"
 #include "ai/nn/neuron.hpp"
+// #include "ai/nn/activation.hpp"
 
 namespace ncooper {
 namespace ai {
@@ -20,14 +21,16 @@ namespace nn {
 template <class LayerType>
 class Layer {
  public:
-    Layer(int numOfNeurons, int inputVectorSize);
+    Layer(int inputVectorSize, int numOfNeurons);
     ~Layer();
 
     void randomizeWsAndBs();
     void randomizeWsAndBs(LayerType start, LayerType end);
     void loadWeights();
+
     void forwardProp(const ncooper::math::linalg::Vector<LayerType>& inputVector);
 
+    int getInputVectorSize();
     Neuron<LayerType>& getNeuron(int index);
     int getNumOfNeurons();
     const ncooper::math::linalg::Matrix<LayerType>& getWeightsMatrix();
@@ -39,6 +42,7 @@ class Layer {
     ncooper::math::linalg::Matrix<LayerType> weightsMatrix;
     ncooper::math::linalg::Vector<LayerType> biasVector;
     ncooper::math::linalg::Vector<LayerType> outputVector;
+    // Activation<LayerType> activation;
     int numOfNeurons;
     int inputVectorSize;
 };

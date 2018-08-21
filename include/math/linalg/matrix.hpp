@@ -34,6 +34,7 @@ class Matrix {
     const MatrixType& operator()(int row, int col) const;
     const Vector<MatrixType>& operator[](int row) const;
     Vector<MatrixType>& operator[](int row);
+    Matrix<MatrixType>& operator=(const Matrix<MatrixType>& matrix);
 
  protected:
     std::vector<Vector<MatrixType>> data;

@@ -22,4 +22,5 @@ add_executable(
     src/math/linalg/matrix.cpp
     src/ai/nn/neuron.cpp
     src/ai/nn/layer/layer.cpp
+    src/ai/nn/network/network.cpp
 )

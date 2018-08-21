@@ -132,6 +132,15 @@ Vector<MatrixType>& Matrix<MatrixType>::operator[](int row) {
     return this->data[row];
 }
 
+template <class MatrixType>
+Matrix<MatrixType>& Matrix<MatrixType>::operator=(const Matrix<MatrixType>& matrix) {
+    this->rows = matrix.rows;
+    this->cols = matrix.cols;
+    this->data.reserve(matrix.rows);
+    this->data = matrix.data;
+    return *this;
+}
+
 template <typename MatrixType>
 void MMAdd(const Matrix<MatrixType> &matrix1,
     const Matrix<MatrixType> &matrix2,
