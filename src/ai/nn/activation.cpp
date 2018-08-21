@@ -10,19 +10,19 @@ namespace nn {
 
 template <class ActivationType>
 Activation::Activation() {
-	std::cout << "No activation name has been specified." << std::endl;
-	this->activationName = "relu";
-	std::cout << "Default activation relu chosen" << std::endl;
+    std::cout << "No activation name has been specified." << std::endl;
+    this->activationName = "relu";
+    std::cout << "Default activation relu chosen" << std::endl;
 }
 
 template <class ActivationType>
 Activation::Activation(std::string activationName) {
-	if (std::find(this->activationsList.begin(), this->activationsList.end(), activationName) != this->activationsList.end()) {
-		this->activationName = activationName;
-	} else {
-		this->activationName = "relu";
-		std::cout << "Default activation relu chosen" << std::endl;
-	}
+    if (std::find(this->activationsList.begin(), this->activationsList.end(), activationName) != this->activationsList.end()) {
+        this->activationName = activationName;
+    } else {
+        this->activationName = "relu";
+        std::cout << "Default activation relu chosen" << std::endl;
+    }
 }
 
 
@@ -73,3 +73,6 @@ template class Activation<float>;
 }
 }
 }
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper

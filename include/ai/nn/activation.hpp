@@ -5,9 +5,11 @@
 #ifndef NCOOPER_ACTIVATION_HPP_
 #define NCOOPER_ACTIVATION_HPP_
 
+#include <math>
 #include <iostream>
-#include <math.h>
 #include <algorithm>
+#include <string>
+#include <vector>
 
 namespace ncooper {
 namespace ai {
@@ -28,8 +30,8 @@ class Activation {
     std::string activationName;
     const std::vector<std::string> activationsList = {"identity", "sigmoid", "tanh", "relu", "leakyRelu"};
 };
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper
 
-#endif // NCOOPER_ACTIVATION_HPP_
+#endif  // NCOOPER_ACTIVATION_HPP_
