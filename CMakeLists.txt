@@ -23,4 +23,5 @@ add_executable(
     src/ai/nn/neuron.cpp
     src/ai/nn/layer/layer.cpp
     src/ai/nn/network/network.cpp
+    src/ai/nn/activation.cpp
 )
