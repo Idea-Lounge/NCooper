@@ -32,7 +32,8 @@ Vector<VectorType>::Vector(const std::vector<VectorType>& vector) : size(vector.
 }
 
 template <class VectorType>
-Vector<VectorType>::~Vector() {}
+Vector<VectorType>::~Vector() {
+}
 
 template <class VectorType>
 void Vector<VectorType>::clear() {
@@ -81,8 +82,8 @@ Vector<VectorType>& Vector<VectorType>::operator=(const Vector<VectorType>& vect
 
 template <typename VectorType>
 void SVMult(const VectorType &scalar,
-    const Vector<VectorType> &vector,
-    Vector<VectorType> &result) {
+            const Vector<VectorType> &vector,
+            Vector<VectorType> &result) {
     assert(vector.getSize() == result.getSize());
     for (int i = 0; i < vector.getSize(); i++) {
         result[i] = vector[i] * scalar;
@@ -91,8 +92,8 @@ void SVMult(const VectorType &scalar,
 
 template <typename VectorType>
 void VVMult(const Vector<VectorType> &vector1,
-    const Vector<VectorType> &vector2,
-    VectorType &result) {
+            const Vector<VectorType> &vector2,
+            VectorType &result) {
     assert(vector1.isTransposed() && vector1.getSize() == vector2.getSize());
     result = 0;
     for (int i = 0; i < vector1.getSize(); i++) {
@@ -102,8 +103,8 @@ void VVMult(const Vector<VectorType> &vector1,
 
 template <typename VectorType>
 void VVAdd(const Vector<VectorType> &vector1,
-    const Vector<VectorType> &vector2,
-    Vector<VectorType> &result) {
+           const Vector<VectorType> &vector2,
+           Vector<VectorType> &result) {
     assert(vector1.getSize() == vector2.getSize() && vector2.getSize() == result.getSize());
     for (int i = 0; i < vector1.getSize(); i++) {
         result[i] = vector1[i] + vector2[i];
@@ -135,7 +136,7 @@ VectorType operator*(const Vector<VectorType> &vector1, const Vector<VectorType>
 template <typename VectorType>
 Vector<VectorType> operator+(const Vector<VectorType> &vector1, const Vector<VectorType> &vector2) {
     assert((vector1.getSize() == vector2.getSize())
-        && (vector1.isTransposed() == vector2.isTransposed()));
+           && (vector1.isTransposed() == vector2.isTransposed()));
     Vector<VectorType> result(vector1.getSize());
     VVAdd(vector1, vector2, result);
     return result;
@@ -168,6 +169,6 @@ template Vector<float> operator+<float>(const Vector<float>&, const Vector<float
 template std::ostream& operator<<<int>(std::ostream&, const Vector<int>&);
 template std::ostream& operator<<<float>(std::ostream&, const Vector<float>&);
 
-}
-}
-}
+}  // namespace linalg
+}  // namespace math
+}  // namespace ncooper
