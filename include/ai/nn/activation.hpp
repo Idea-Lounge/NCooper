@@ -5,7 +5,7 @@
 #ifndef NCOOPER_ACTIVATION_HPP_
 #define NCOOPER_ACTIVATION_HPP_
 
-#include <math>
+#include <cmath>
 #include <iostream>
 #include <algorithm>
 #include <string>

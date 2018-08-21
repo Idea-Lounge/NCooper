@@ -3,6 +3,7 @@
  */
 
 #include "ai/nn/layer/layer.hpp"
+#include "ai/nn/activation.hpp"
 
 namespace ncooper {
 namespace ai {
@@ -16,8 +17,8 @@ Layer<LayerType>::Layer(int inputVectorSize, int numOfNeurons) : inputVectorSize
     this->neurons.reserve(numOfNeurons);
     for (int i = 0; i < numOfNeurons; i++) {
         this->neurons.push_back(Neuron<LayerType>(this->weightsMatrix[i],
-            this->biasVector[i],
-            this->outputVector[i]));
+                                                  this->biasVector[i],
+                                                  this->outputVector[i]));
     }
 }
 
@@ -86,8 +87,7 @@ void Layer<LayerType>::forwardProp(const ncooper::math::linalg::Vector<LayerType
     ncooper::math::linalg::Vector<LayerType> preActivationVector = (this->weightsMatrix * inputVector) + this->biasVector;
 
     for (int i = 0; i < outputVector.getSize(); i++) {
-        this->outputVector[i] = (1 / (1 + exp(-preActivationVector[i])));
-        // this->outputVector[i] = activation.computeActivation(preActivationVector[i]);
+        this->outputVector[i] = activation.computeActivation(preActivationVector[i]);
     }
 }
 
@@ -124,6 +124,6 @@ int Layer<LayerType>::getNumOfNeurons() {
 
 template class Layer<int>;
 template class Layer<float>;
-}
-}
-}
+}  // namespace nn
+}  // namespace ai
+}  // namespace ncooper
