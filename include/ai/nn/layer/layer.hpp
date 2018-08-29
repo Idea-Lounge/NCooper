@@ -2,8 +2,8 @@
     Copyright IdeaLounge.io 2018
  */
 
-#ifndef NCOOPER_LAYER_HPP_
-#define NCOOPER_LAYER_HPP_
+#ifndef NCOOPER_AI_NN_LAYER_HPP_
+#define NCOOPER_AI_NN_LAYER_HPP_
 
 #include <time.h>
 #include <math.h>
@@ -12,44 +12,30 @@
 #include <random>
 #include <vector>
 
-#include "math/linalg/matrix.hpp"
 #include "math/linalg/vector.hpp"
-#include "ai/nn/neuron.hpp"
-#include "ai/nn/activation.hpp"
 
 namespace ncooper {
 namespace ai {
 namespace nn {
-template <class LayerType>
+template <class DataType>
 class Layer {
  public:
-    Layer(int inputVectorSize, int numOfNeurons);
+    Layer(int inputVectorSize, int outputVectorSize);
     ~Layer();
 
-    void randomizeWsAndBs();
-    void randomizeWsAndBs(LayerType start, LayerType end);
-    void loadWeights();
+    virtual void forwardProp(const ncooper::math::linalg::Vector<DataType>& inputVector);
 
-    void forwardProp(const ncooper::math::linalg::Vector<LayerType>& inputVector);
-
-    int getInputVectorSize();
-    Neuron<LayerType>& getNeuron(int index);
-    int getNumOfNeurons();
-    const ncooper::math::linalg::Matrix<LayerType>& getWeightsMatrix();
-    const ncooper::math::linalg::Vector<LayerType>& getBiasVector();
-    const ncooper::math::linalg::Vector<LayerType>& getOutputVector();
+    const int getInputVectorSize();
+    const int getOutputVectorSize();
+    const ncooper::math::linalg::Vector<DataType>& getOutputVector();
 
  protected:
-    std::vector<Neuron<LayerType> > neurons;
-    ncooper::math::linalg::Matrix<LayerType> weightsMatrix;
-    ncooper::math::linalg::Vector<LayerType> biasVector;
-    ncooper::math::linalg::Vector<LayerType> outputVector;
-    Activation<LayerType> activation;
-    int numOfNeurons;
+    ncooper::math::linalg::Vector<DataType> outputVector;
+    int outputVectorSize;
     int inputVectorSize;
 };
 }  // namespace nn
 }  // namespace ai
 }  // namespace ncooper
 
-#endif  // NCOOPER_LAYER_HPP_
+#endif  // NCOOPER_AI_NN_PREACTIVATION_LAYER_HPP_

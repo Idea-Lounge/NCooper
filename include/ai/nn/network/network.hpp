@@ -15,28 +15,30 @@
 
 #include "math/linalg/matrix.hpp"
 #include "ai/nn/layer/layer.hpp"
+#include "ai/nn/layer/preActivationLayer.hpp"
+#include "ai/nn/layer/activationLayer.hpp"
 
 namespace ncooper {
 namespace ai {
 namespace nn {
-template <class NetworkType>
+template <class DataType>
 class Network {
  public:
-    Network(std::vector<std::pair<int, int> > networkArchitecture);
+    Network(std::vector<int> networkArchitecture);
     ~Network();
 
     void randomizeWsAndBs();
 
-    void forwardProp(const ncooper::math::linalg::Vector<NetworkType>& inputVector);
+    void forwardProp(const ncooper::math::linalg::Vector<DataType>& inputVector);
 
-    const std::vector<std::pair<int, int> >& getNetworkArchitecture();
-    Layer<NetworkType>& getLayer(int i);
-    const ncooper::math::linalg::Vector<NetworkType>& getOutputVector();
+    const std::vector<int>& getNetworkArchitecture();
+    Layer<DataType>& getLayer(int i);
+    const ncooper::math::linalg::Vector<DataType>& getOutputVector();
 
  private:
-    std::vector<std::pair<int, int> > networkArchitecture;
-    std::vector<Layer<NetworkType> > hiddenLayers;
-    ncooper::math::linalg::Vector<NetworkType> outputVector;
+    std::vector<int> networkArchitecture;
+    std::vector<Layer<DataType>*> hiddenLayers;
+    ncooper::math::linalg::Vector<DataType> outputVector;
 };
 }  // namespace nn
 }  // namespace ai

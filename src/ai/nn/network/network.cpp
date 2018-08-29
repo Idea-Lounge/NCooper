@@ -5,68 +5,64 @@ namespace ncooper {
 namespace ai {
 namespace nn {
 
-template <class NetworkType>
-Network<NetworkType>::Network(std::vector<std::pair<int, int> > networkArchitecture) :
+template <class DataType>
+Network<DataType>::Network(std::vector<int> networkArchitecture) :
     networkArchitecture(networkArchitecture) {
     std::cout << "initializing network" << std::endl;
-    for (int i = 0; i < networkArchitecture.size() - 1; i++) {
-        std::cout << networkArchitecture[i].second << " : "
-                  << networkArchitecture[i + 1].first
-                  << std::endl;
-        if (networkArchitecture[i].second != networkArchitecture[i + 1].first) {
-            throw "Invalid network architecture!";
-        }
-    }
 
-    std::cout << "checked network" << std::endl;
-    for (int i = 0; i < this->networkArchitecture.size(); i++) {
-        this->hiddenLayers.push_back(
-            ncooper::ai::nn::Layer<NetworkType>(networkArchitecture[i].first,
-                                                networkArchitecture[i].second)
-            );
+    for (int i = 1; i < this->networkArchitecture.size(); i++) {
+        this->hiddenLayers.push_back(new PreActivationLayer<DataType>(
+                                         this->networkArchitecture[i - 1],
+                                         this->networkArchitecture[i]));
+        this->hiddenLayers.push_back(new ActivationLayer<DataType>(
+                                         this->networkArchitecture[i],
+                                         this->networkArchitecture[i]));
     }
 }
 
-template <class NetworkType>
-Network<NetworkType>::~Network() {
-
-}
-
-template <class NetworkType>
-void Network<NetworkType>::randomizeWsAndBs() {
+template <class DataType>
+Network<DataType>::~Network() {
     for (int i = 0; i < this->hiddenLayers.size(); i++) {
-        this->hiddenLayers[i].randomizeWsAndBs();
-        std::cout << "Layer: " << i << std::endl;
-        std::cout << "Weights Matrix: " << this->hiddenLayers[i].getWeightsMatrix() << std::endl;
-        std::cout << "Bias Vector: " << this->hiddenLayers[i].getBiasVector() << std::endl;
+        delete this->hiddenLayers[i];
     }
 }
 
-template <class NetworkType>
-void Network<NetworkType>::forwardProp(const ncooper::math::linalg::Vector<NetworkType> &inputVector) {
-    std::cout << "inputVectorSize: " << this->hiddenLayers[0].getInputVectorSize() << std::endl;
-    assert(this->hiddenLayers[0].getInputVectorSize() == inputVector.getSize());
-    ncooper::math::linalg::Vector<NetworkType> networkVector(inputVector);
+template <class DataType>
+void Network<DataType>::randomizeWsAndBs() {
+    // loop assumes symmetric preactivation, activation pairing
+    for (int i = 0; i < this->hiddenLayers.size(); i+=2) {
+        dynamic_cast<PreActivationLayer<DataType>*>(this->hiddenLayers[i])->randomizeWsAndBs();
+        std::cout << "Layer: " << i << std::endl;
+        std::cout << "Weights Matrix: " << dynamic_cast<PreActivationLayer<DataType>*>(this->hiddenLayers[i])->getWeightsMatrix() << std::endl;
+        std::cout << "Bias Vector: " << dynamic_cast<PreActivationLayer<DataType>*>(this->hiddenLayers[i])->getBiasVector() << std::endl;
+    }
+}
+
+template <class DataType>
+void Network<DataType>::forwardProp(const ncooper::math::linalg::Vector<DataType> &inputVector) {
+    std::cout << "inputVectorSize: " << this->hiddenLayers[0]->getInputVectorSize() << std::endl;
+    assert(this->hiddenLayers[0]->getInputVectorSize() == inputVector.getSize());
+    ncooper::math::linalg::Vector<DataType> networkVector(inputVector);
     for (int i = 0; i < this->hiddenLayers.size(); i++) {
         std::cout << "Network Vector Layer " << i << ": " << networkVector << std::endl;
-        this->hiddenLayers[i].forwardProp(networkVector);
-        networkVector = this->hiddenLayers[i].getOutputVector();
+        this->hiddenLayers[i]->forwardProp(networkVector);
+        networkVector = this->hiddenLayers[i]->getOutputVector();
     }
     this->outputVector = networkVector;
 }
 
-template <class NetworkType>
-const std::vector<std::pair<int, int> >& Network<NetworkType>::getNetworkArchitecture() {
+template <class DataType>
+const std::vector<int>& Network<DataType>::getNetworkArchitecture() {
     return this->networkArchitecture;
 }
 
-template <class NetworkType>
-Layer<NetworkType>& Network<NetworkType>::getLayer(int i) {
-    return this->hiddenLayers[i];
+template <class DataType>
+Layer<DataType>& Network<DataType>::getLayer(int i) {
+    return *this->hiddenLayers[i];
 }
 
-template <class NetworkType>
-const ncooper::math::linalg::Vector<NetworkType>& Network<NetworkType>::getOutputVector() {
+template <class DataType>
+const ncooper::math::linalg::Vector<DataType>& Network<DataType>::getOutputVector() {
     return this->outputVector;
 }
 
