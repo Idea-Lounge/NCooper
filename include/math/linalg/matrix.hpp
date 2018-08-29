@@ -13,70 +13,70 @@
 namespace ncooper {
 namespace math {
 namespace linalg {
-template <class MatrixType>
+template <class DataType>
 class Matrix {
  public:
     Matrix();  // initializes empty matrix
-    Matrix(int rows, int cols, MatrixType initVal = 0);
-    Matrix(const Matrix<MatrixType>& matrix);
+    Matrix(int rows, int cols, DataType initVal = 0);
+    Matrix(const Matrix<DataType>& matrix);
     ~Matrix();
 
-    void push_back(Vector<MatrixType>& vector);
-    Matrix<MatrixType> transpose();
-    Matrix<MatrixType> hadamardProduct(const Matrix<MatrixType>& matrix);
-    Matrix<MatrixType> kroneckerProduct(const Matrix<MatrixType>& matrix);
-    Matrix<MatrixType> concatRight(const Matrix<MatrixType>& matrix);
+    void push_back(Vector<DataType>& vector);
+    Matrix<DataType> transpose();
+    Matrix<DataType> hadamardProduct(const Matrix<DataType>& matrix);
+    Matrix<DataType> kroneckerProduct(const Matrix<DataType>& matrix);
+    Matrix<DataType> concatRight(const Matrix<DataType>& matrix);
 
     int getRows() const;
     int getCols() const;
 
-    MatrixType& operator()(int row, int col);
-    const MatrixType& operator()(int row, int col) const;
-    const Vector<MatrixType>& operator[](int row) const;
-    Vector<MatrixType>& operator[](int row);
-    Matrix<MatrixType>& operator=(const Matrix<MatrixType>& matrix);
+    DataType& operator()(int row, int col);
+    const DataType& operator()(int row, int col) const;
+    const Vector<DataType>& operator[](int row) const;
+    Vector<DataType>& operator[](int row);
+    Matrix<DataType>& operator=(const Matrix<DataType>& matrix);
 
  protected:
-    std::vector<Vector<MatrixType> > data;
+    std::vector<Vector<DataType> > data;
     int rows = 0;
     int cols = 0;
 };
 
-template <typename MatrixType>
-extern void MMAdd(const Matrix<MatrixType> &matrix1,
-                  const Matrix<MatrixType> &matrix2,
-                  Matrix<MatrixType> &result);
-template <typename MatrixType>
-extern void MSMult(const Matrix<MatrixType> &matrix,
-                   const MatrixType &scalar,
-                   Matrix<MatrixType> &result);
-template <typename MatrixType>
-extern void MVMult(const Matrix<MatrixType> &matrix,
-                   const Vector<MatrixType> &vector,
-                   Vector<MatrixType> &result);
-template <typename MatrixType>
-extern void MMMult(const Matrix<MatrixType> &matrix1,
-                   const Matrix<MatrixType> &matrix2,
-                   Matrix<MatrixType> &result);
+template <typename DataType>
+extern void MMAdd(const Matrix<DataType> &matrix1,
+                  const Matrix<DataType> &matrix2,
+                  Matrix<DataType> &result);
+template <typename DataType>
+extern void MSMult(const Matrix<DataType> &matrix,
+                   const DataType &scalar,
+                   Matrix<DataType> &result);
+template <typename DataType>
+extern void MVMult(const Matrix<DataType> &matrix,
+                   const Vector<DataType> &vector,
+                   Vector<DataType> &result);
+template <typename DataType>
+extern void MMMult(const Matrix<DataType> &matrix1,
+                   const Matrix<DataType> &matrix2,
+                   Matrix<DataType> &result);
 
-template <typename MatrixType>
-extern Matrix<MatrixType> operator+(const Matrix<MatrixType> &matrix1,
-                                    const Matrix<MatrixType> &matrix2);
-template <typename MatrixType>
-extern Matrix<MatrixType> operator*(const MatrixType &scalar,
-                                    const Matrix<MatrixType>& matrix);
-template <typename MatrixType>
-extern Matrix<MatrixType> operator*(const Matrix<MatrixType>& matrix,
-                                    const MatrixType &scalar);
-template <typename MatrixType>
-extern Vector<MatrixType> operator*(const Matrix<MatrixType>& matrix,
-                                    const Vector<MatrixType>& vector);
-template <typename MatrixType>
-extern Matrix<MatrixType> operator*(const Matrix<MatrixType>& matrix1,
-                                    const Matrix<MatrixType>& matrix2);
-template <typename MatrixType>
+template <typename DataType>
+extern Matrix<DataType> operator+(const Matrix<DataType> &matrix1,
+                                    const Matrix<DataType> &matrix2);
+template <typename DataType>
+extern Matrix<DataType> operator*(const DataType &scalar,
+                                    const Matrix<DataType>& matrix);
+template <typename DataType>
+extern Matrix<DataType> operator*(const Matrix<DataType>& matrix,
+                                    const DataType &scalar);
+template <typename DataType>
+extern Vector<DataType> operator*(const Matrix<DataType>& matrix,
+                                    const Vector<DataType>& vector);
+template <typename DataType>
+extern Matrix<DataType> operator*(const Matrix<DataType>& matrix1,
+                                    const Matrix<DataType>& matrix2);
+template <typename DataType>
 extern std::ostream& operator<<(std::ostream& os,
-                                const Matrix<MatrixType>& matrix);
+                                const Matrix<DataType>& matrix);
 
 }  // namespace linalg
 }  // namespace math

@@ -11,24 +11,35 @@
 #include <string>
 #include <vector>
 
+#include "ai/nn/layer/layer.hpp"
+#include "math/linalg/vector.hpp"
+
 namespace ncooper {
 namespace ai {
 namespace nn {
 template <class DataType>
-class Activation {
+class ActivationLayer: public Layer<DataType> {
  public:
-    Activation();
-    Activation(std::string activationName);
-    DataType computeActivation(DataType z);
+    ActivationLayer(int inputVectorSize,
+                    int outputVectorSize,
+                    std::string activationType = "sigmoid");
+    ~ActivationLayer();
+
+    void forwardProp(const ncooper::math::linalg::Vector<DataType>& inputVector);
+    std::string getActivationType();
+    // change to forward Prop
 
  private:
+    DataType computeActivation(DataType z);
     DataType identity(DataType z);
     DataType sigmoid(DataType z);
     DataType tanh(DataType z);
     DataType relu(DataType z);
     DataType leakyRelu(DataType z);
-    std::string activationName;
+    std::string activationType;
     const std::vector<std::string> activationsList = {"identity", "sigmoid", "tanh", "relu", "leakyRelu"};
+
+    // add activation neuron vector
 };
 }  // namespace nn
 }  // namespace ai

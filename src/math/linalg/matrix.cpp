@@ -8,41 +8,41 @@ namespace ncooper {
 namespace math {
 namespace linalg {
 
-template <class MatrixType>
-Matrix<MatrixType>::Matrix() : rows(0), cols(0) {
-    this->data = std::vector<Vector<MatrixType> >();
+template <class DataType>
+Matrix<DataType>::Matrix() : rows(0), cols(0) {
+    this->data = std::vector<Vector<DataType> >();
 }
 
-template <class MatrixType>
-Matrix<MatrixType>::Matrix(int rows, int cols, MatrixType initVal) : rows(rows), cols(cols) {
+template <class DataType>
+Matrix<DataType>::Matrix(int rows, int cols, DataType initVal) : rows(rows), cols(cols) {
     this->data.reserve(this->rows);
     for (int i = 0; i < this->rows; i++) {
-        Vector<MatrixType> vector(this->cols, initVal);
+        Vector<DataType> vector(this->cols, initVal);
         vector.transpose();
         this->data.push_back(vector);
     }
 }
 
-template <class MatrixType>
-Matrix<MatrixType>::Matrix(const Matrix<MatrixType>& matrix) : rows(matrix.rows), cols(matrix.cols) {
+template <class DataType>
+Matrix<DataType>::Matrix(const Matrix<DataType>& matrix) : rows(matrix.rows), cols(matrix.cols) {
     this->data.reserve(this->rows);
     this->data = matrix.data;
 }
 
-template <class MatrixType>
-Matrix<MatrixType>::~Matrix() {
+template <class DataType>
+Matrix<DataType>::~Matrix() {
 }
 
-template <class MatrixType>
-void Matrix<MatrixType>::push_back(Vector<MatrixType>& vector) {
+template <class DataType>
+void Matrix<DataType>::push_back(Vector<DataType>& vector) {
     assert(this->cols == vector.getSize());
     vector.transpose();     // transposing vector internally
     this->data.push_back(vector);
 }
 
-template <class MatrixType>
-Matrix<MatrixType> Matrix<MatrixType>::transpose() {
-    Matrix<MatrixType> finalMatrix(this->getCols(), this->getRows(), 0);
+template <class DataType>
+Matrix<DataType> Matrix<DataType>::transpose() {
+    Matrix<DataType> finalMatrix(this->getCols(), this->getRows(), 0);
     for (int i = 0; i < this->getCols(); i++) {
         for (int j = 0; j < this->getRows(); j++) {
             finalMatrix(i, j) = this->data[j][i];
@@ -51,10 +51,10 @@ Matrix<MatrixType> Matrix<MatrixType>::transpose() {
     return finalMatrix;
 }
 
-template <class MatrixType>
-Matrix<MatrixType> Matrix<MatrixType>::hadamardProduct(const Matrix<MatrixType>& matrix) {
+template <class DataType>
+Matrix<DataType> Matrix<DataType>::hadamardProduct(const Matrix<DataType>& matrix) {
     assert(this->rows == matrix.getRows() && this->cols == matrix.getCols());
-    Matrix<MatrixType> finalMatrix(this->rows, this->cols);
+    Matrix<DataType> finalMatrix(this->rows, this->cols);
     for (int i = 0; i < this->rows; i++) {
         for (int j = 0; j < this->cols; j++) {
             finalMatrix(i, j) = this->operator()(i, j) * matrix(i, j);
@@ -63,15 +63,15 @@ Matrix<MatrixType> Matrix<MatrixType>::hadamardProduct(const Matrix<MatrixType>&
     return finalMatrix;
 }
 
-template <class MatrixType>
-Matrix<MatrixType> Matrix<MatrixType>::kroneckerProduct(const Matrix<MatrixType>& matrix) {
-    Matrix<MatrixType> finalMatrix(matrix.getRows() * this->rows,
+template <class DataType>
+Matrix<DataType> Matrix<DataType>::kroneckerProduct(const Matrix<DataType>& matrix) {
+    Matrix<DataType> finalMatrix(matrix.getRows() * this->rows,
                                    matrix.getCols() * this->cols);
     int finalMatrixRow = 0;
     int finalMatrixCol = 0;
     for (int i = 0; i < this->getRows(); i++) {
         for (int j = 0; j < this->getCols(); j++) {
-            Matrix<MatrixType> tempMatrix = this->operator()(i, j) * matrix;
+            Matrix<DataType> tempMatrix = this->operator()(i, j) * matrix;
 
             for (int k = 0; k < tempMatrix.getRows(); k++) {
                 for (int l = 0; l < tempMatrix.getCols(); l++) {
@@ -85,10 +85,10 @@ Matrix<MatrixType> Matrix<MatrixType>::kroneckerProduct(const Matrix<MatrixType>
     return finalMatrix;
 }
 
-template <class MatrixType>
-Matrix<MatrixType> Matrix<MatrixType>::concatRight(const Matrix<MatrixType>& matrix) {
+template <class DataType>
+Matrix<DataType> Matrix<DataType>::concatRight(const Matrix<DataType>& matrix) {
     assert(this->rows == matrix.getRows());
-    Matrix<MatrixType> finalMatrix(this->rows, this->cols + matrix.getCols());
+    Matrix<DataType> finalMatrix(this->rows, this->cols + matrix.getCols());
     int matrixRow = 0;
     int matrixCol = 0;
     for (int i = 0; i < finalMatrix.getRows(); i++) {
@@ -103,38 +103,38 @@ Matrix<MatrixType> Matrix<MatrixType>::concatRight(const Matrix<MatrixType>& mat
     return finalMatrix;
 }
 
-template <class MatrixType>
-int Matrix<MatrixType>::getRows() const {
+template <class DataType>
+int Matrix<DataType>::getRows() const {
     return this->rows;
 }
 
-template <class MatrixType>
-int Matrix<MatrixType>::getCols() const {
+template <class DataType>
+int Matrix<DataType>::getCols() const {
     return this->cols;
 }
 
-template <class MatrixType>
-MatrixType& Matrix<MatrixType>::operator()(int row, int col) {
+template <class DataType>
+DataType& Matrix<DataType>::operator()(int row, int col) {
     return this->data[row][col];
 }
 
-template <class MatrixType>
-const MatrixType& Matrix<MatrixType>::operator()(int row, int col) const {
+template <class DataType>
+const DataType& Matrix<DataType>::operator()(int row, int col) const {
     return this->data[row][col];
 }
 
-template <class MatrixType>
-const Vector<MatrixType>& Matrix<MatrixType>::operator[](int row) const {
+template <class DataType>
+const Vector<DataType>& Matrix<DataType>::operator[](int row) const {
     return this->data[row];
 }
 
-template <class MatrixType>
-Vector<MatrixType>& Matrix<MatrixType>::operator[](int row) {
+template <class DataType>
+Vector<DataType>& Matrix<DataType>::operator[](int row) {
     return this->data[row];
 }
 
-template <class MatrixType>
-Matrix<MatrixType>& Matrix<MatrixType>::operator=(const Matrix<MatrixType>& matrix) {
+template <class DataType>
+Matrix<DataType>& Matrix<DataType>::operator=(const Matrix<DataType>& matrix) {
     this->rows = matrix.rows;
     this->cols = matrix.cols;
     this->data.reserve(matrix.rows);
@@ -142,10 +142,10 @@ Matrix<MatrixType>& Matrix<MatrixType>::operator=(const Matrix<MatrixType>& matr
     return *this;
 }
 
-template <typename MatrixType>
-void MMAdd(const Matrix<MatrixType> &matrix1,
-           const Matrix<MatrixType> &matrix2,
-           Matrix<MatrixType> &result) {
+template <typename DataType>
+void MMAdd(const Matrix<DataType> &matrix1,
+           const Matrix<DataType> &matrix2,
+           Matrix<DataType> &result) {
     assert((matrix1.getCols() == matrix2.getCols() && matrix2.getCols() == result.getCols())
            && (matrix1.getRows() == matrix2.getRows() == result.getRows()));
     for (int i = 0; i < matrix1.getRows(); i++) {
@@ -153,30 +153,30 @@ void MMAdd(const Matrix<MatrixType> &matrix1,
     }
 }
 
-template <typename MatrixType>
-void MSMult(const Matrix<MatrixType> &matrix,
-            const MatrixType &scalar,
-            Matrix<MatrixType> &result) {
+template <typename DataType>
+void MSMult(const Matrix<DataType> &matrix,
+            const DataType &scalar,
+            Matrix<DataType> &result) {
     assert((matrix.getCols() == result.getCols()) && matrix.getRows() == result.getRows());
     for (int i = 0; i < matrix.getRows(); i++) {
         result[i] = scalar * matrix[i];
     }
 }
 
-template <typename MatrixType>
-void MVMult(const Matrix<MatrixType> &matrix,
-            const Vector<MatrixType> &vector,
-            Vector<MatrixType> &result) {
+template <typename DataType>
+void MVMult(const Matrix<DataType> &matrix,
+            const Vector<DataType> &vector,
+            Vector<DataType> &result) {
     assert(matrix.getCols() == vector.getSize() && matrix.getRows() == result.getSize());
     for (int i = 0; i < matrix.getRows(); i++) {
         result[i] = matrix[i] * vector;
     }
 }
 
-template <typename MatrixType>
-void MMMult(const Matrix<MatrixType> &matrix1,
-            const Matrix<MatrixType> &matrix2,
-            Matrix<MatrixType> &result) {
+template <typename DataType>
+void MMMult(const Matrix<DataType> &matrix1,
+            const Matrix<DataType> &matrix2,
+            Matrix<DataType> &result) {
     assert((matrix1.getCols() == matrix2.getRows())
            && (result.getRows() == matrix1.getRows())
            && (result.getCols() == matrix2.getCols()));
@@ -189,46 +189,46 @@ void MMMult(const Matrix<MatrixType> &matrix1,
     }
 }
 
-template <typename MatrixType>
-Matrix<MatrixType> operator+(const Matrix<MatrixType> &matrix1, const Matrix<MatrixType> &matrix2) {
+template <typename DataType>
+Matrix<DataType> operator+(const Matrix<DataType> &matrix1, const Matrix<DataType> &matrix2) {
     assert(matrix1.getCols() == matrix2.getCols() && matrix1.getRows() == matrix2.getRows());
-    Matrix<MatrixType> finalMatrix(matrix1.getRows(), matrix1.getCols());
+    Matrix<DataType> finalMatrix(matrix1.getRows(), matrix1.getCols());
     MMAdd(matrix1, matrix2, finalMatrix);
     return finalMatrix;
 }
 
-template <typename MatrixType>
-Matrix<MatrixType> operator*(const MatrixType &scalar, const Matrix<MatrixType> &matrix) {
-    Matrix<MatrixType> finalMatrix(matrix.getRows(), matrix.getCols(), 0);
+template <typename DataType>
+Matrix<DataType> operator*(const DataType &scalar, const Matrix<DataType> &matrix) {
+    Matrix<DataType> finalMatrix(matrix.getRows(), matrix.getCols(), 0);
     MSMult(matrix, scalar, finalMatrix);
     return finalMatrix;
 }
 
-template <typename MatrixType>
-Matrix<MatrixType> operator*(const Matrix<MatrixType>& matrix, const MatrixType &scalar) {
-    Matrix<MatrixType> finalMatrix(matrix.getRows(), matrix.getCols(), 0);
+template <typename DataType>
+Matrix<DataType> operator*(const Matrix<DataType>& matrix, const DataType &scalar) {
+    Matrix<DataType> finalMatrix(matrix.getRows(), matrix.getCols(), 0);
     MSMult(matrix, scalar, finalMatrix);
     return finalMatrix;
 }
 
-template <typename MatrixType>
-Vector<MatrixType> operator*(const Matrix<MatrixType> &matrix, const Vector<MatrixType> &vector) {
+template <typename DataType>
+Vector<DataType> operator*(const Matrix<DataType> &matrix, const Vector<DataType> &vector) {
     assert(matrix.getCols() == vector.getSize());
-    Vector<MatrixType> finalVector(matrix.getRows(), 0);
+    Vector<DataType> finalVector(matrix.getRows(), 0);
     MVMult(matrix, vector, finalVector);
     return finalVector;
 }
 
-template <typename MatrixType>
-Matrix<MatrixType> operator*(const Matrix<MatrixType>& matrix1, const Matrix<MatrixType>& matrix2) {
+template <typename DataType>
+Matrix<DataType> operator*(const Matrix<DataType>& matrix1, const Matrix<DataType>& matrix2) {
     assert(matrix1.getCols() == matrix2.getRows());
-    Matrix<MatrixType> finalMatrix(matrix1.getRows(), matrix2.getCols(), 0);
+    Matrix<DataType> finalMatrix(matrix1.getRows(), matrix2.getCols(), 0);
     MMMult(matrix1, matrix2, finalMatrix);
     return finalMatrix;
 }
 
-template <typename MatrixType>
-std::ostream& operator<<(std::ostream& os, const Matrix<MatrixType>& matrix) {
+template <typename DataType>
+std::ostream& operator<<(std::ostream& os, const Matrix<DataType>& matrix) {
     for (int i = 0; i < matrix.getRows(); i++) {
         os << matrix[i] << '\n';
     }

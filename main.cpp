@@ -19,16 +19,12 @@ int main() {
         // }
         // std::cout << "final output: " << layer.getOutputVector() << std::endl;
 
-        std::vector<std::pair<int, int> > networkArchitecture;
-        networkArchitecture.push_back(std::pair<int, int>(5, 4));
-        networkArchitecture.push_back(std::pair<int, int>(4, 6));
-        networkArchitecture.push_back(std::pair<int, int>(6, 3));
-        networkArchitecture.push_back(std::pair<int, int>(3, 3));
+        std::vector<int> networkArchitecture({3, 2, 3, 3});
 
         ncooper::ai::nn::Network<float> network1(networkArchitecture);
         network1.randomizeWsAndBs();
 
-        ncooper::math::linalg::Vector<float> inputVector({1, 3, 4, 5, 6});
+        ncooper::math::linalg::Vector<float> inputVector({1, 3, 4});
         network1.forwardProp(inputVector);
 
         std::cout << "get output vector" << network1.getOutputVector() << std::endl;

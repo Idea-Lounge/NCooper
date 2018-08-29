@@ -12,58 +12,58 @@
 namespace ncooper {
 namespace math {
 namespace linalg {
-template <class VectorType>
+template <class DataType>
 class Vector {
  public:
     Vector();
-    Vector(int size, VectorType initVal = 0);
-    Vector(const Vector<VectorType>& vector);
-    Vector(const std::vector<VectorType>& vector);
+    Vector(int size, DataType initVal = 0);
+    Vector(const Vector<DataType>& vector);
+    Vector(const std::vector<DataType>& vector);
     ~Vector();
 
     void clear();
-    void push_back(VectorType element);
+    void push_back(DataType element);
     void transpose();
 
     int getSize() const;
     bool isTransposed() const;
 
-    VectorType& operator[](int index);
-    const VectorType& operator[](int index) const;
+    DataType& operator[](int index);
+    const DataType& operator[](int index) const;
 
-    Vector<VectorType>& operator=(const Vector<VectorType>& vector);
+    Vector<DataType>& operator=(const Vector<DataType>& vector);
 
  protected:
-    std::vector<VectorType> data;
+    std::vector<DataType> data;
     int size;
     bool transposed = false;
 };
 
-template <typename VectorType>
-extern void SVMult(const VectorType &scalar,
-                   const Vector<VectorType> &vector,
-                   Vector<VectorType> &result);
+template <typename DataType>
+extern void SVMult(const DataType &scalar,
+                   const Vector<DataType> &vector,
+                   Vector<DataType> &result);
 
-template <typename VectorType>
-extern void VVMult(const Vector<VectorType> &vector1,
-                   const Vector<VectorType> &vector2,
-                   VectorType &result);
+template <typename DataType>
+extern void VVMult(const Vector<DataType> &vector1,
+                   const Vector<DataType> &vector2,
+                   DataType &result);
 
-template <typename VectorType>
-extern void VVAdd(const Vector<VectorType> &vector1,
-                  const Vector<VectorType> &vector2,
-                  Vector<VectorType> &result);
+template <typename DataType>
+extern void VVAdd(const Vector<DataType> &vector1,
+                  const Vector<DataType> &vector2,
+                  Vector<DataType> &result);
 
-template <typename VectorType>
-extern Vector<VectorType> operator*(const VectorType &scalar, const Vector<VectorType> &vector);
-template <typename VectorType>
-extern Vector<VectorType> operator*(const Vector<VectorType> &vector, VectorType &scalar);
-template <typename VectorType>
-extern VectorType operator*(const Vector<VectorType> &vector1, const Vector<VectorType> &vector2);
-template <typename VectorType>
-extern Vector<VectorType> operator+(const Vector<VectorType> &vector1, const Vector<VectorType> &vector2);
-template <typename VectorType>
-extern std::ostream& operator<<(std::ostream &os, const Vector<VectorType> &vector);
+template <typename DataType>
+extern Vector<DataType> operator*(const DataType &scalar, const Vector<DataType> &vector);
+template <typename DataType>
+extern Vector<DataType> operator*(const Vector<DataType> &vector, DataType &scalar);
+template <typename DataType>
+extern DataType operator*(const Vector<DataType> &vector1, const Vector<DataType> &vector2);
+template <typename DataType>
+extern Vector<DataType> operator+(const Vector<DataType> &vector1, const Vector<DataType> &vector2);
+template <typename DataType>
+extern std::ostream& operator<<(std::ostream &os, const Vector<DataType> &vector);
 
 }  // namespace linalg
 }  // namespace math

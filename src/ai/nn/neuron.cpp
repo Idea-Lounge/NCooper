@@ -7,24 +7,24 @@
 namespace ncooper {
 namespace ai {
 namespace nn {
-template <class NeuronType>
-Neuron<NeuronType>::Neuron(int inputVectorSize) {
+template <class DataType>
+Neuron<DataType>::Neuron(int inputVectorSize) {
     this->soloNeuron = true;
-    this->weightsVector = new ncooper::math::linalg::Vector<NeuronType>(inputVectorSize, 0);
-    this->bias = new NeuronType(0);
-    this->output = new NeuronType(0);
+    this->weightsVector = new ncooper::math::linalg::Vector<DataType>(inputVectorSize, 0);
+    this->bias = new DataType(0);
+    this->output = new DataType(0);
 }
 
-template <class NeuronType>
-Neuron<NeuronType>::Neuron(ncooper::math::linalg::Vector<NeuronType> &weightsVector, NeuronType &bias, NeuronType &output) {
+template <class DataType>
+Neuron<DataType>::Neuron(ncooper::math::linalg::Vector<DataType> &weightsVector, DataType &bias, DataType &output) {
     this->weightsVector = &weightsVector;
     this->bias = &bias;
     this->output = &output;
     this->soloNeuron = false;
 }
 
-template <class NeuronType>
-Neuron<NeuronType>::~Neuron() {
+template <class DataType>
+Neuron<DataType>::~Neuron() {
     if (this->soloNeuron) {
         delete this->weightsVector;
         delete this->bias;
@@ -32,24 +32,24 @@ Neuron<NeuronType>::~Neuron() {
     }
 }
 
-template <class NeuronType>
-void Neuron<NeuronType>::forwardProp(const ncooper::math::linalg::Vector<NeuronType> &inputVector) {
-    NeuronType preActivation = *this->weightsVector * inputVector + *this->bias;
+template <class DataType>
+void Neuron<DataType>::forwardProp(const ncooper::math::linalg::Vector<DataType> &inputVector) {
+    DataType preActivation = *this->weightsVector * inputVector + *this->bias;
     *this->output = 1 / (1 + exp(-preActivation));
 }
 
-template <class NeuronType>
-const ncooper::math::linalg::Vector<NeuronType>& Neuron<NeuronType>::getWeightsVector() {
+template <class DataType>
+const ncooper::math::linalg::Vector<DataType>& Neuron<DataType>::getWeightsVector() {
     return *this->weightsVector;
 }
 
-template <class NeuronType>
-const NeuronType& Neuron<NeuronType>::getBias() {
+template <class DataType>
+const DataType& Neuron<DataType>::getBias() {
     return *this->bias;
 }
 
-template <class NeuronType>
-const NeuronType& Neuron<NeuronType>::getOutput() {
+template <class DataType>
+const DataType& Neuron<DataType>::getOutput() {
     return *this->output;
 }
 

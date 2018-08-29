@@ -13,22 +13,22 @@
 namespace ncooper {
 namespace ai {
 namespace nn {
-template <class NeuronType>
+template <class DataType>
 class Neuron {
  public:
     Neuron(int inputVectorSize);
-    Neuron(ncooper::math::linalg::Vector<NeuronType> &weightsVector, NeuronType &bias, NeuronType &output);
+    Neuron(ncooper::math::linalg::Vector<DataType> &weightsVector, DataType &bias, DataType &output);
     ~Neuron();
 
-    void forwardProp(const ncooper::math::linalg::Vector<NeuronType> &inputVector);
+    void forwardProp(const ncooper::math::linalg::Vector<DataType> &inputVector);
 
-    const ncooper::math::linalg::Vector<NeuronType>& getWeightsVector();
-    const NeuronType& getBias();
-    const NeuronType& getOutput();
+    const ncooper::math::linalg::Vector<DataType>& getWeightsVector();
+    const DataType& getBias();
+    const DataType& getOutput();
  private:
-    ncooper::math::linalg::Vector<NeuronType> *weightsVector;  // arbitrary size
-    NeuronType *bias;
-    NeuronType *output;
+    ncooper::math::linalg::Vector<DataType> *weightsVector;  // arbitrary size
+    DataType *bias;
+    DataType *output;
     bool soloNeuron;
 };
 }  // namespace nn
